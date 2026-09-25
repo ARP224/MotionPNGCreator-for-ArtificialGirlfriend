@@ -1,0 +1,53 @@
+# =============================================================================
+# MotionPNGCreator for ArtificialGirlfriend
+#
+# セットアップ:
+#   uv sync
+#   ※Pythonは .python-version で 3.12 に固定（numpy 1.26系は Python 3.13+ の
+#     wheelが無く、ソースビルドに落ちて失敗するため）
+#
+# 起動:
+#   uv run python asset_preparer.py    （素材準備: リスケール→背景→検出→Vidu→口素材→口消し→検証）
+#   uv run python video_generator.py   （バッチ自動生成: Vidu生成→口消しWebM化）
+#
+# SAM3モデル:
+#   Sam3/sam3.pt に配置
+# =============================================================================
+
+[project]
+name = "motionpngcreator-for-artificialgirlfriend"
+version = "0.3.0"
+description = "1枚のキャラ画像から口パク用ループ動画を自動生成するツール群（Vidu API生成 + SAM3口消し + リアルタイム口パクプレイヤー）"
+readme = "README.md"
+license = "AGPL-3.0-only"
+requires-python = ">=3.12"
+dependencies = [
+    "numpy>=1.26.0,<2.0.0",
+    "opencv-python>=4.8.0",
+    "pillow>=10.0.0",
+    "scipy>=1.10.0",
+    "ultralytics>=8.3.237",
+    "torch>=2.5.0",
+    "torchvision>=0.20.0",
+    "tkinterdnd2>=0.3.0",
+    "websockets>=13.0",
+    # SAM3 (ultralytics) が実行時に要求する依存。uv syncで消えないようロックに含める
+    "clip",
+    "timm>=1.0.0",
+]
+
+[tool.uv]
+override-dependencies = [
+    # headless版を無効化してGUI版のopencv-pythonを使用
+    "opencv-python-headless>=4.5.4.58 ; sys_platform == 'never'",
+]
+
+[[tool.uv.index]]
+name = "pytorch-cu126"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cu126" }
+torchvision = { index = "pytorch-cu126" }
+clip = { git = "https://github.com/ultralytics/CLIP.git" }

@@ -1,0 +1,6 @@
+# batはcmdの仕様上CRLF必須（ASCIIのみで記述。詳細は各ファイル冒頭のNOTE参照）
+*.bat text eol=crlf
+*.vbs text eol=crlf
+
+# ArtificialGirlfriend の MotionPNGPlayer/lipsync.js と byte 同一に保つ（両側 LF）
+MotionPNGTuber_Player/lipsync.js text eol=lf

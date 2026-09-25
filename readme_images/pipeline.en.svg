@@ -1,0 +1,121 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="540" viewBox="0 0 1280 540" font-family="'Segoe UI',system-ui,sans-serif">
+  <title>MotionPNGCreator overall flow</title>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8a817c"/>
+    </marker>
+  </defs>
+
+  <!-- Background (filled; dark-mode safety) -->
+  <rect x="0.5" y="0.5" width="1279" height="539" fill="#ffffff" stroke="#e8e2de"/>
+
+  <!-- Title (icon: triple chevron) -->
+  <g fill="#7a6f68">
+    <path d="M400 15 L410 25 L400 35 L404 25 z"/>
+    <path d="M413 15 L423 25 L413 35 L417 25 z"/>
+    <path d="M426 15 L436 25 L426 35 L430 25 z"/>
+  </g>
+  <text x="448" y="31" font-size="15" fill="#7a6f68" font-weight="bold">MotionPNGCreator overall flow ── from one image to assets moving in AG</text>
+
+  <!-- Local PC boundary -->
+  <rect x="28" y="130" width="984" height="380" rx="12" fill="none" stroke="#cfc7c1" stroke-width="1.5" stroke-dasharray="7 5"/>
+  <text x="46" y="501" font-size="12" fill="#8b7f78">Your PC (local processing / NVIDIA GPU)</text>
+
+  <!-- Vidu API (cloud) -->
+  <rect x="390" y="50" width="560" height="62" rx="10" fill="#faf8f7" stroke="#b8ada6" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <text x="670" y="77" font-size="13.5" fill="#7a6f68" text-anchor="middle" font-weight="bold">Vidu API (cloud, pay-as-you-go)</text>
+  <text x="670" y="100" font-size="11.5" fill="#9a8f88" text-anchor="middle">receives an image + prompt, generates a video and returns it</text>
+
+  <!-- ============ 1 Setup ============ -->
+  <rect x="48" y="150" width="230" height="270" rx="10" fill="#ffffff" stroke="#a99e97" stroke-width="2"/>
+  <circle cx="70" cy="172" r="11" fill="#c65b84"/>
+  <text x="70" y="176.5" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">1</text>
+  <text x="88" y="178" font-size="17" fill="#3f3833" font-weight="bold">Setup</text>
+  <text x="64" y="212" font-size="13" fill="#5a5049">Character images</text>
+  <text x="74" y="234" font-size="12.5" fill="#7a6f68">・one image per character</text>
+  <text x="74" y="256" font-size="12.5" fill="#7a6f68">・file name = character name</text>
+  <text x="74" y="278" font-size="12.5" fill="#7a6f68">・aspect ratio 9:16</text>
+  <text x="74" y="300" font-size="12.5" fill="#7a6f68">・go into the work folder</text>
+  <text x="64" y="330" font-size="13" fill="#5a5049">SAM3 model (sam3.pt)</text>
+  <text x="74" y="352" font-size="12.5" fill="#7a6f68">・placed in Sam3/</text>
+  <text x="64" y="382" font-size="13" fill="#5a5049">Vidu API key (paid)</text>
+  <text x="74" y="404" font-size="12.5" fill="#7a6f68">・issued on Vidu's site</text>
+
+  <line x1="278" y1="182" x2="314" y2="182" stroke="#8a817c" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- ============ 2 Asset Preparation ============ -->
+  <rect x="318" y="150" width="320" height="300" rx="10" fill="#ffffff" stroke="#a99e97" stroke-width="2"/>
+  <circle cx="340" cy="172" r="11" fill="#c65b84"/>
+  <text x="340" y="176.5" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">2</text>
+  <text x="358" y="178" font-size="15" fill="#3f3833" font-weight="bold">Asset Preparation (asset_preparer.py)</text>
+  <text x="336" y="218" font-size="13" fill="#5a5049">① Rescale to 720×1280 (overwrite)</text>
+  <text x="336" y="243" font-size="13" fill="#5a5049">② Repaint the background #00FF00 (overwrite)</text>
+  <text x="336" y="268" font-size="13" fill="#5a5049">③ Detect eyes/mouth with SAM3 → face_info.json</text>
+  <text x="336" y="293" font-size="13" fill="#5a5049">④ Generate the mouth-source video with Vidu</text>
+  <text x="336" y="318" font-size="13" fill="#5a5049">⑤ Extract mouth sprites from that video</text>
+  <text x="350" y="338" font-size="12.5" fill="#7a6f68">→ mouth/ (open, closed, half.png)</text>
+  <text x="336" y="363" font-size="13" fill="#5a5049">⑥ Paint out the mouth with a brush (overwrite)</text>
+  <text x="336" y="388" font-size="13" fill="#5a5049">⑦ Verify → launch Video Generator</text>
+  <text x="336" y="416" font-size="12" fill="#9a8f88">each character's material set is now</text>
+  <text x="336" y="434" font-size="12" fill="#9a8f88">complete in the work folder</text>
+
+  <!-- Tab ④ ⇄ Vidu -->
+  <line x1="466" y1="150" x2="466" y2="116" stroke="#8a817c" stroke-width="1.8" marker-end="url(#ah)"/>
+  <line x1="490" y1="114" x2="490" y2="146" stroke="#8a817c" stroke-width="1.8" marker-end="url(#ah)"/>
+
+  <line x1="638" y1="182" x2="674" y2="182" stroke="#8a817c" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- ============ 3 Video Production ============ -->
+  <rect x="678" y="150" width="310" height="340" rx="10" fill="#ffffff" stroke="#a99e97" stroke-width="2"/>
+  <circle cx="700" cy="172" r="11" fill="#c65b84"/>
+  <text x="700" y="176.5" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">3</text>
+  <text x="718" y="178" font-size="15" fill="#3f3833" font-weight="bold">Video Production (video_generator.py)</text>
+
+  <rect x="694" y="196" width="278" height="100" rx="8" fill="#f6f1ee" stroke="#cbc1ba" stroke-width="1.5"/>
+  <text x="708" y="219" font-size="12.5" fill="#5a5049" font-weight="bold">Phase1: bulk orders to Vidu</text>
+  <text x="708" y="243" font-size="12" fill="#7a6f68">・character × prompt = 1 video</text>
+  <text x="708" y="265" font-size="12" fill="#7a6f68">・parallel up to the concurrency quota</text>
+  <text x="708" y="287" font-size="12" fill="#7a6f68">・→ downloaded into original/</text>
+
+  <line x1="833" y1="296" x2="833" y2="312" stroke="#8a817c" stroke-width="2" marker-end="url(#ah)"/>
+
+  <rect x="694" y="316" width="278" height="140" rx="8" fill="#f6f1ee" stroke="#cbc1ba" stroke-width="1.5"/>
+  <text x="708" y="339" font-size="12.5" fill="#5a5049" font-weight="bold">Phase2: tracking &amp; mouth removal</text>
+  <text x="708" y="363" font-size="12" fill="#7a6f68">・one video at a time (GPU)</text>
+  <text x="708" y="385" font-size="12" fill="#7a6f68">・SAM3 detects both eyes in every frame</text>
+  <text x="708" y="407" font-size="12" fill="#7a6f68">・mouth removal → chroma-key transparency</text>
+  <text x="708" y="429" font-size="12" fill="#7a6f68">・→ {job ID}.webm (transparent VP9)</text>
+  <text x="708" y="449" font-size="12" fill="#7a6f68">　＋ {job ID}.json (mouth position data)</text>
+
+  <text x="698" y="477" font-size="12.5" fill="#5a5049">Review: play in the player, weed out rejects</text>
+
+  <!-- Phase1 ⇄ Vidu -->
+  <line x1="820" y1="150" x2="820" y2="116" stroke="#8a817c" stroke-width="1.8" marker-end="url(#ah)"/>
+  <line x1="844" y1="114" x2="844" y2="146" stroke="#8a817c" stroke-width="1.8" marker-end="url(#ah)"/>
+
+  <line x1="988" y1="182" x2="1036" y2="182" stroke="#8a817c" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- ============ 4 Into AG ============ -->
+  <rect x="1040" y="150" width="212" height="266" rx="10" fill="#fbeef3" stroke="#d98cab" stroke-width="2"/>
+  <circle cx="1062" cy="172" r="11" fill="#c65b84"/>
+  <text x="1080" y="178" font-size="17" fill="#8c3a5c" font-weight="bold">Into AG</text>
+  <text x="1062" y="176.5" font-size="12" fill="#ffffff" text-anchor="middle" font-weight="bold">4</text>
+  <text x="1056" y="202" font-size="11.5" fill="#9a8f88">ArtificialGirlfriend</text>
+  <text x="1056" y="220" font-size="11.5" fill="#9a8f88">(a separate repository)</text>
+  <text x="1056" y="248" font-size="12.5" fill="#5a5049">Copy each character</text>
+  <text x="1056" y="270" font-size="12.5" fill="#5a5049">folder into</text>
+  <text x="1056" y="292" font-size="12.5" fill="#5a5049">MotionPNGPlayer\Asset\</text>
+  <text x="1056" y="320" font-size="12.5" fill="#5a5049">Set the character's</text>
+  <text x="1056" y="342" font-size="12.5" fill="#5a5049">"Motion Folder Name"</text>
+  <text x="1056" y="370" font-size="12.5" fill="#5a5049">With "Appear",</text>
+  <text x="1056" y="392" font-size="12.5" fill="#5a5049">she starts moving</text>
+
+  <!-- Arrow labels (white halo; drawn last) -->
+  <text x="296" y="198" font-size="12" fill="#8b7f78" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">work folder with images</text>
+  <text x="656" y="198" font-size="12" fill="#8b7f78" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">materials</text>
+  <text x="1012" y="198" font-size="12" fill="#8b7f78" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">finished assets</text>
+  <text x="458" y="138" font-size="11.5" fill="#8b7f78" text-anchor="end" paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">order</text>
+  <text x="498" y="138" font-size="11.5" fill="#8b7f78" paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">video</text>
+  <text x="812" y="138" font-size="11.5" fill="#8b7f78" text-anchor="end" paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">orders (parallel)</text>
+  <text x="852" y="138" font-size="11.5" fill="#8b7f78" paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">videos</text>
+</svg>

@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1280" height="545" viewBox="0 0 1280 545" font-family="'Hiragino Sans','Yu Gothic UI',Meiryo,system-ui,sans-serif">
+  <title>MotionPNGPlayerの口パク合成</title>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8.5" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 z" fill="#8a817c"/>
+    </marker>
+  </defs>
+
+  <!-- 背景（塗り込み・ダークモード対策） -->
+  <rect x="0.5" y="0.5" width="1279" height="544" fill="#ffffff" stroke="#e8e2de"/>
+
+  <!-- タイトル（左端アイコン: 重なった2枚のレイヤー） -->
+  <g fill="none" stroke="#7a6f68" stroke-width="2.5">
+    <rect x="388" y="13" width="16" height="14" rx="2"/>
+    <rect x="396" y="20" width="16" height="14" rx="2" fill="#ffffff"/>
+  </g>
+  <text x="426" y="31" font-size="16" fill="#7a6f68" font-weight="bold">MotionPNGPlayerの口パク合成 ── 3つの素材が、話すキャラクターになる</text>
+
+  <!-- ============ Motionフォルダ ============ -->
+  <rect x="48" y="80" width="300" height="300" rx="10" fill="#ffffff" stroke="#a99e97" stroke-width="2"/>
+  <text x="66" y="114" font-size="19" fill="#3f3833" font-weight="bold">Motionフォルダ</text>
+  <text x="66" y="140" font-size="13" fill="#9a8f88">MPCの Step 1・2 で作った素材</text>
+  <text x="66" y="174" font-size="14.5" fill="#5a5049">透過ループ動画（.webm）</text>
+  <text x="76" y="197" font-size="13" fill="#7a6f68">・口なし → 口素材と二重にならない</text>
+  <text x="76" y="219" font-size="13" fill="#7a6f68">・アルファ（透過情報）付き</text>
+  <text x="66" y="251" font-size="14.5" fill="#5a5049">口の位置データ（.json）</text>
+  <text x="76" y="274" font-size="13" fill="#7a6f68">・全フレームの口の位置・大きさ・傾き</text>
+  <text x="76" y="296" font-size="13" fill="#7a6f68">・顔が動いても口が追従できる</text>
+  <text x="66" y="328" font-size="14.5" fill="#5a5049">口素材（mouth/）</text>
+  <text x="76" y="351" font-size="13" fill="#7a6f68">・closed / half / open の3枚</text>
+  <text x="76" y="373" font-size="13" fill="#7a6f68">・音量で開き具合を切り替える</text>
+
+  <!-- ============ 声 ============ -->
+  <rect x="48" y="410" width="300" height="105" rx="10" fill="#ffffff" stroke="#a99e97" stroke-width="2"/>
+  <text x="66" y="442" font-size="17" fill="#3f3833" font-weight="bold">声（音声）</text>
+  <text x="66" y="470" font-size="13" fill="#5a5049">AGでは: キャラクターの声（音声合成）</text>
+  <text x="66" y="494" font-size="13" fill="#5a5049">確認用プレイヤー: ダミー音声（マイク不要）</text>
+
+  <!-- ============ MotionPNGPlayer（Electron） ============ -->
+  <rect x="388" y="80" width="470" height="300" rx="10" fill="#ffffff" stroke="#a99e97" stroke-width="2"/>
+  <text x="406" y="114" font-size="18" fill="#3f3833" font-weight="bold">MotionPNGPlayer（Electron）</text>
+  <text x="406" y="142" font-size="13" fill="#9a8f88">透明・枠なし・最前面のウィンドウで、デスクトップに直接表示</text>
+  <text x="406" y="176" font-size="14.5" fill="#5a5049">① 透過ループ動画を背面でループ再生し、声を待つ</text>
+  <text x="422" y="199" font-size="13" fill="#7a6f68">待っている間は、閉じた口（closed）のまま</text>
+  <text x="406" y="231" font-size="14.5" fill="#5a5049">② 声が届くと、音量で口の形を選ぶ</text>
+  <text x="422" y="254" font-size="13" fill="#7a6f68">小さい→closed / 中→half / 大きい→open（切替は最短70ms）</text>
+  <text x="406" y="286" font-size="14.5" fill="#5a5049">③ 再生位置 × fps → そのフレームの口の位置・大きさ・傾き</text>
+  <text x="406" y="318" font-size="14.5" fill="#5a5049">④ 口素材をその位置・大きさ・傾きで、動画の上に重ね描き</text>
+  <text x="406" y="352" font-size="13" fill="#9a8f88">動画と口、2つのレイヤーが透明ウィンドウの中で重なっている</text>
+
+  <!-- ============ デスクトップでの様子 ============ -->
+  <rect x="898" y="80" width="350" height="340" rx="10" fill="#ffffff" stroke="#a99e97" stroke-width="2"/>
+  <text x="916" y="114" font-size="19" fill="#3f3833" font-weight="bold">デスクトップでの様子</text>
+
+  <rect x="918" y="130" width="310" height="180" rx="8" fill="none" stroke="#b8ada6" stroke-width="1.5" stroke-dasharray="6 4"/>
+  <rect x="984" y="146" width="170" height="140" rx="8" fill="#eef5ee" stroke="#9dbb9d" stroke-width="1.5"/>
+  <rect x="1040" y="180" width="58" height="26" rx="6" fill="#fbeef3" stroke="#d98cab" stroke-width="1.5"/>
+  <text x="1162" y="198" font-size="13" fill="#8c3a5c">← 口素材</text>
+  <text x="1069" y="250" font-size="13" fill="#4e6a4e" text-anchor="middle">キャラクター</text>
+  <text x="1069" y="270" font-size="13" fill="#4e6a4e" text-anchor="middle">（透過動画）</text>
+  <text x="934" y="300" font-size="13" fill="#9a8f88">デスクトップ（壁紙・他のウィンドウ）</text>
+
+  <text x="916" y="336" font-size="13" fill="#5a5049">キャラクターの形だけが浮かんで表示され、</text>
+  <text x="916" y="358" font-size="13" fill="#5a5049">四角いウィンドウの枠は見えない</text>
+  <text x="916" y="388" font-size="13.5" fill="#8c3a5c" font-weight="bold">声が無い間も、髪や身体は揺れ続ける</text>
+  <text x="916" y="410" font-size="13.5" fill="#8c3a5c" font-weight="bold">声が届くと、話すように口が動く</text>
+
+  <!-- 矢印 -->
+  <line x1="348" y1="112" x2="384" y2="112" stroke="#8a817c" stroke-width="2" marker-end="url(#ah)"/>
+  <polyline points="348,462 470,462 470,384" fill="none" stroke="#8a817c" stroke-width="2" marker-end="url(#ah)"/>
+
+  <!-- 矢印ラベル（白halo・後描き） -->
+  <text x="366" y="104" font-size="13" fill="#8b7f78" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">素材一式</text>
+  <text x="410" y="454" font-size="13" fill="#8b7f78" text-anchor="middle" paint-order="stroke" stroke="#ffffff" stroke-width="5" stroke-linejoin="round">音量</text>
+</svg>

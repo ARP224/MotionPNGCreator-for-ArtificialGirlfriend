@@ -1,0 +1,14 @@
+{
+  "name": "motion-pngtuber-player",
+  "version": "1.0.0",
+  "description": "MotionPNGTuber Player for Artificial Girlfriend",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "devDependencies": {
+    "electron": "^28.0.0"
+  },
+  "author": "Ryo (ARP224)",
+  "license": "AGPL-3.0-only"
+}
