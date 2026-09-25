@@ -16,7 +16,7 @@
 
 [project]
 name = "motionpngcreator-for-artificialgirlfriend"
-version = "0.3.0"
+version = "1.0.0"
 description = "1枚のキャラ画像から口パク用ループ動画を自動生成するツール群（Vidu API生成 + SAM3口消し + リアルタイム口パクプレイヤー）"
 readme = "README.md"
 license = "AGPL-3.0-only"
